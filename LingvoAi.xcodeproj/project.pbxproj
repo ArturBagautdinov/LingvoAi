@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B9EF30AE2E2C459700A0A187 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = B9EF30AD2E2C459700A0A187 /* OpenAI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		B9CA55502E2B8CE000CBB605 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9EF30AE2E2C459700A0A187 /* OpenAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = LingvoAi;
 			packageProductDependencies = (
+				B9EF30AD2E2C459700A0A187 /* OpenAI */,
 			);
 			productName = LingvoAi;
 			productReference = B9CA55422E2B8CE000CBB605 /* LingvoAi.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = B9CA55392E2B8CE000CBB605;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B9EF30AC2E2C459700A0A187 /* XCRemoteSwiftPackageReference "OpenAI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B9CA55432E2B8CE000CBB605 /* Products */;
 			projectDirPath = "";
@@ -558,6 +567,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B9EF30AC2E2C459700A0A187 /* XCRemoteSwiftPackageReference "OpenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MacPaw/OpenAI.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.2.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B9EF30AD2E2C459700A0A187 /* OpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9EF30AC2E2C459700A0A187 /* XCRemoteSwiftPackageReference "OpenAI" */;
+			productName = OpenAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B9CA553A2E2B8CE000CBB605 /* Project object */;
 }
