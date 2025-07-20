@@ -14,7 +14,6 @@ class ChatController: ObservableObject {
     
     func sendNewMessage(content: String) {
         guard !content.trimmingCharacters(in: .whitespaces).isEmpty else { return }
-        
         let userMessage = Message(content: content, isUser: true)
         self.messages.append(userMessage)
         getBotReply()
