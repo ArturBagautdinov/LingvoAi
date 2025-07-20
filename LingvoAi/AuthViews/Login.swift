@@ -11,7 +11,7 @@ struct Login: View {
     
     var body: some View {
         if userIsLoggedIn {
-            MainView()
+            TabBarView()
         } else {
             content
         }

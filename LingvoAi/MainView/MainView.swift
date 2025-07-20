@@ -12,32 +12,74 @@ import FirebaseAuth
 struct MainView: View {
     @State private var shouldShowLoginView = false
     var body: some View {
-        
         NavigationStack{
-            ZStack{
-                Button {
-                    do {
-                        try FirebaseAuth.Auth.auth().signOut()
-                        shouldShowLoginView = true
-                    } catch {
-                        print(error.localizedDescription)
+            ZStack {
+                BackgroundGradient()
+                
+                VStack(spacing: 30) {
+                    VStack(spacing: 10) {
+                        Text("LingvoAI")
+                            .font(.system(size: 36, weight: .bold))
+                            .foregroundStyle(
+                                LinearGradient(
+                                    colors: [.blue, .purple, .pink],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                        
+                        Text("Ваш интеллектуальный\nпомощник в изучении языков")
+                            .font(.system(.title3, design: .rounded))
+                            .fontWeight(.medium)
+                            .foregroundColor(.white.opacity(0.9))
+                            .multilineTextAlignment(.center)
+                            .lineSpacing(6)
                     }
+                    .padding(.top, 50)
                     
-                } label: {
-                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .foregroundStyle(.black)
+                    Spacer()
+                    VStack(alignment: .leading, spacing: 25) {
+                        FeatureText(icon: "text.book.closed", text: "Глубокая проверка грамматики")
+                        FeatureText(icon: "bubble.left.and.bubble.right", text: "Живые диалоги с ИИ")
+                        FeatureText(icon: "gamecontroller", text: "Увлекательные языковые квизы")
+                    }
+                    .padding(.horizontal, 30)
+                    
+                    Spacer()
+                    Text("Начните своё обучение сейчас!")
+                        .font(.system(.headline, design: .rounded))
+                        .foregroundColor(.white)
+                        .padding(.bottom, 40)
                 }
-                .navigationDestination(isPresented: $shouldShowLoginView) {
-                    Login()
-                }
-                .padding(.leading, 350)
-            }
-            .navigationDestination(isPresented: $shouldShowLoginView) {
-                Login()
             }
         }
     }
 }
+struct FeatureText: View {
+    let icon: String
+    let text: String
+    
+    var body: some View {
+        HStack(spacing: 15) {
+            Image(systemName: icon)
+                .font(.title2)
+                .foregroundColor(.white)
+                .frame(width: 40)
+            
+            Text(text)
+                .font(.system(.body, design: .rounded))
+                .fontWeight(.semibold)
+                .foregroundColor(.white.opacity(0.9))
+            
+            Spacer()
+        }
+    }
+}
+extension Color {
+    static let blueNPurple = Color(red: 0.4, green: 0.3, blue: 0.8)
+}
+
 #Preview {
     MainView()
 }

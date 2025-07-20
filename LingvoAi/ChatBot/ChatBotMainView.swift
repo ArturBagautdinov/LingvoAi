@@ -63,51 +63,62 @@ struct ChatBotMainView: View {
     @State private var shouldShowLoginView = false
     var body: some View {
         NavigationStack {
-            VStack {
-                Button {
-                    do {
-                        try FirebaseAuth.Auth.auth().signOut()
-                        shouldShowLoginView = true
-                    } catch {
-                        print(error.localizedDescription)
+            ZStack {
+                BackgroundGradient()
+                
+                VStack(spacing: 0) {
+                    ZStack {
+                        Text("LingvoChat")
+                            .font(.system(size: 36, weight: .bold))
+                            .foregroundStyle(
+                                LinearGradient(
+                                    colors: [.blue, .purple, .pink],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                        
+                    }
+                    .padding(.top, 5)
+                    .padding(.horizontal)
+                    
+                    ScrollView {
+                        ForEach(chatController.messages) { message in
+                            MessageView(message: message)
+                                .padding(5)
+                                .id(message.id)
+                            
+                        }
+                    }
+                    Divider()
+                    HStack {
+                        TextField("Type a message...", text: self.$string, axis: .vertical)
+                            .textFieldStyle(.plain)
+                            .padding(12)
+                            .background(Color.white.opacity(0.8))
+                            .cornerRadius(20)
+                            .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 1)
+                        
+                        Button {
+                            self.chatController
+                                .sendNewMessage(content: string)
+                            string = ""
+                            
+                            
+                        } label: {
+                            Image(systemName: "paperplane")
+                                .font(.system(size: 22))
+                                .foregroundColor(.white)
+                                .padding(10)
+                                .background(LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing))
+                                .clipShape(Circle())
+                        }
                     }
                     
-                } label: {
-                    Image(systemName: "rectangle.portrait.and.arrow.right")
-                        .foregroundStyle(.black)
-                }
-                .navigationDestination(isPresented: $shouldShowLoginView) {
-                    Login()
-                }
-                .padding(.leading, 350)
-        
-                
-                
-                ScrollView {
-                    ForEach(chatController.messages) { message in
-                        MessageView(message: message)
-                            .padding(5)
-                        
-                    }
-                }
-                Divider()
-                HStack {
-                    TextField("Type a message...", text: self.$string, axis: .vertical)
-                        .padding()
-                        .background(Color.gray.opacity(0.1))
-                        .cornerRadius(15)
+                    .padding()
                     
-                    Button {
-                        self.chatController
-                            .sendNewMessage(content: string)
-                        string = ""
-                        
-                        
-                    } label: {
-                        Image(systemName: "paperplane")
-                    }
                 }
-                .padding()
             }
         }
     }
@@ -122,7 +133,7 @@ struct MessageView: View {
                     Spacer()
                     Text(message.content)
                         .padding()
-                        .background(Color.blue)
+                        .background(LinearGradient(colors: [.blue, .purple], startPoint: .topLeading, endPoint: .bottomTrailing))
                         .foregroundColor(.white)
                         .clipShape(Capsule())
                 }
@@ -130,7 +141,7 @@ struct MessageView: View {
                 HStack {
                     Text(message.content)
                         .padding()
-                        .background(Color.green)
+                        .background(Color.gray.opacity(0.3))
                         .foregroundColor(.white)
                         .clipShape(Capsule())
                     Spacer()
