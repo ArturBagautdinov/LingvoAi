@@ -1,6 +1,8 @@
 
 import SwiftUI
 import OpenAI
+import Firebase
+import FirebaseAuth
 
 class ChatController: ObservableObject {
     @Published var messages: [Message] = [
@@ -59,33 +61,55 @@ struct Message: Identifiable {
 struct ChatBotMainView: View {
     @StateObject private var chatController = ChatController()
     @State var string: String = ""
+    @State private var shouldShowLoginView = false
     var body: some View {
-        VStack {
-            ScrollView {
-                ForEach(chatController.messages) { message in
-                    MessageView(message: message)
-                        .padding(5)
-                    
-                }
-            }
-            Divider()
-            HStack {
-                TextField("Type a message...", text: self.$string, axis: .vertical)
-                    .padding()
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(15)
-                
+        NavigationStack {
+            VStack {
                 Button {
-                    self.chatController
-                        .sendNewMessage(content: string)
-                    string = ""
-                    
+                    do {
+                        try FirebaseAuth.Auth.auth().signOut()
+                        shouldShowLoginView = true
+                    } catch {
+                        print(error.localizedDescription)
+                    }
                     
                 } label: {
-                    Image(systemName: "paperplane")
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                        .foregroundStyle(.black)
                 }
+                .navigationDestination(isPresented: $shouldShowLoginView) {
+                    Login()
+                }
+                .padding(.leading, 350)
+        
+                
+                
+                ScrollView {
+                    ForEach(chatController.messages) { message in
+                        MessageView(message: message)
+                            .padding(5)
+                        
+                    }
+                }
+                Divider()
+                HStack {
+                    TextField("Type a message...", text: self.$string, axis: .vertical)
+                        .padding()
+                        .background(Color.gray.opacity(0.1))
+                        .cornerRadius(15)
+                    
+                    Button {
+                        self.chatController
+                            .sendNewMessage(content: string)
+                        string = ""
+                        
+                        
+                    } label: {
+                        Image(systemName: "paperplane")
+                    }
+                }
+                .padding()
             }
-            .padding()
         }
     }
 }

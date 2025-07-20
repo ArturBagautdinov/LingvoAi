@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C221A382E2D691F0075EBA8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3C221A372E2D691F0075EBA8 /* FirebaseAuth */; };
+		3C221A3A2E2D691F0075EBA8 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C221A392E2D691F0075EBA8 /* FirebaseCore */; };
 		B9EF30AE2E2C459700A0A187 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = B9EF30AD2E2C459700A0A187 /* OpenAI */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +59,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9EF30AE2E2C459700A0A187 /* OpenAI in Frameworks */,
+				3C221A3A2E2D691F0075EBA8 /* FirebaseCore in Frameworks */,
+				3C221A382E2D691F0075EBA8 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +122,8 @@
 			name = LingvoAi;
 			packageProductDependencies = (
 				B9EF30AD2E2C459700A0A187 /* OpenAI */,
+				3C221A372E2D691F0075EBA8 /* FirebaseAuth */,
+				3C221A392E2D691F0075EBA8 /* FirebaseCore */,
 			);
 			productName = LingvoAi;
 			productReference = B9CA55422E2B8CE000CBB605 /* LingvoAi.app */;
@@ -203,6 +209,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				B9EF30AC2E2C459700A0A187 /* XCRemoteSwiftPackageReference "OpenAI" */,
+				3C221A362E2D691F0075EBA8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B9CA55432E2B8CE000CBB605 /* Products */;
@@ -569,6 +576,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3C221A362E2D691F0075EBA8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
 		B9EF30AC2E2C459700A0A187 /* XCRemoteSwiftPackageReference "OpenAI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MacPaw/OpenAI.git";
@@ -580,6 +595,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3C221A372E2D691F0075EBA8 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C221A362E2D691F0075EBA8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		3C221A392E2D691F0075EBA8 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C221A362E2D691F0075EBA8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
 		B9EF30AD2E2C459700A0A187 /* OpenAI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B9EF30AC2E2C459700A0A187 /* XCRemoteSwiftPackageReference "OpenAI" */;
