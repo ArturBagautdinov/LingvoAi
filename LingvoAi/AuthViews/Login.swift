@@ -1,5 +1,4 @@
 import SwiftUI
-import Firebase
 import FirebaseAuth
 
 struct Login: View {
@@ -7,7 +6,8 @@ struct Login: View {
     @State private var password: String = ""
     @State private var isAnimated = false
     @State private var userIsLoggedIn = false
-    private var authenticationService: Auth = Auth()
+    @StateObject private var authenticationService: Auth = Auth()
+    @State private var errorMessage: String? = nil
     
     var body: some View {
         if userIsLoggedIn {
@@ -65,11 +65,37 @@ struct Login: View {
                                 .frame(height: 40)
                                 .background(.white)
                                 .cornerRadius(5)
+                            
+                            if let error = errorMessage {
+                                Text(error)
+                                    .foregroundStyle(.red)
+                                    .font(.caption)
+                            }
                         }
                         .frame(width: 370)
                         
                         AuthButton(text: "LOGIN", isAnimated: $isAnimated) {
-                            authenticationService.login(email: email, password: password)
+                            if email.isEmpty {
+                                    errorMessage = "Enter email"
+                                    return
+                                }
+                                
+                            if password.isEmpty {
+                                    errorMessage = "Enter пароль"
+                                    return
+                                }
+                                
+                            if password.count < 6 {
+                                    errorMessage = "The password must be at least 6 characters long"
+                                    return
+                                }
+                                
+                            authenticationService.login(email: email, password: password) { error in
+                                if let error = error {
+                                    errorMessage = error.localizedDescription
+                                }
+                            }
+                            
                         }.padding(.top, 30)
                         
                         
