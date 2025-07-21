@@ -10,3 +10,4 @@ struct BackgroundGradient: View {
 #Preview {
     BackgroundGradient()
 }
+
