@@ -20,7 +20,7 @@ struct TabBarView: View {
                     Image(systemName: "message")
                     Text("Chat")
                 }
-            //QuizView()
+            QuizView()
                 .tabItem {
                     Image(systemName: "graduationcap")
                     Text("Quiz")

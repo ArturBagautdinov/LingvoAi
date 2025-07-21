@@ -6,8 +6,7 @@ import FirebaseAuth
 
 class ChatController: ObservableObject {
     @Published var messages: [Message] = [
-        .init(content: "Hello!", isUser: true),
-        .init(content: "Hi! How can I help you?", isUser: false)
+        .init(content: "Hi, I am your personal assistant! How can I help you?", isUser: false)
     ]
     
     let openAI = OpenAI(apiToken: "")
@@ -26,7 +25,7 @@ class ChatController: ObservableObject {
         }
         
         let query = ChatQuery(
-            model: .gpt3_5Turbo, messages: chatMessages
+            model: .gpt4_0613, messages: chatMessages
         )
         
         openAI.chats(query: query) { result in
@@ -86,7 +85,7 @@ struct ChatBotMainView: View {
                     ScrollView {
                         ForEach(chatController.messages) { message in
                             MessageView(message: message)
-                                .padding(5)
+                                .padding(15)
                                 .id(message.id)
                             
                         }

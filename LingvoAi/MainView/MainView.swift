@@ -29,7 +29,7 @@ struct MainView: View {
                             )
                             .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
                         
-                        Text("Ваш интеллектуальный\nпомощник в изучении языков")
+                        Text("Ваш интеллектуальный помощник\n в изучении Английского языка")
                             .font(.system(.title3, design: .rounded))
                             .fontWeight(.medium)
                             .foregroundColor(.white.opacity(0.9))
