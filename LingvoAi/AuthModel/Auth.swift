@@ -1,23 +1,19 @@
 import Foundation
 import SwiftUI
-import Firebase
 import FirebaseAuth
 
-struct Auth {
+class Auth: ObservableObject {
+    @Published var error: String?
     
-    func register(email: String, password: String) {
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { resul, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
+    func register(email: String, password: String, completion: @escaping (Error?) -> Void) {
+        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { _, error in
+            completion(error)
         }
     }
     
-    func login(email: String, password: String) {
-        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if error != nil {
-                print(error!.localizedDescription)
-            }
+    func login(email: String, password: String, completion: @escaping (Error?) -> Void) {
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { _, error in
+            completion(error)
             
         }
     }
