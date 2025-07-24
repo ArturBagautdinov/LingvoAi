@@ -15,6 +15,7 @@ struct ProfileView: View {
     @State private var isAnimated = false
     @State private var gender: Gender = .male
     @State private var shouldShowLoginView = false
+    @State private var isLoading = false
     
     enum Gender {
         case female, male
@@ -104,13 +105,40 @@ struct ProfileView: View {
             }
             .foregroundStyle(.white)
         }
+        .onAppear {
+                loadUserData() 
+            }
         .padding(.bottom, -35)
     }
+    func loadUserData() {
+        guard let userId = FirebaseAuth.Auth.auth().currentUser?.uid else { return }
+            
+            isLoading = true
+            Firestore.firestore().collection("Users").document(userId).getDocument { snapshot, error in
+                isLoading = false
+                
+                if let error = error {
+                    print("Error loading user data: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let snapshot = snapshot, snapshot.exists {
+                    do {
+                        let user = try snapshot.data(as: User.self)
+                        name = user.name
+                        spokenLanguages = user.spokenLanguages
+                        gender = user.gender == "male" ? .male : .female
+                    } catch {
+                        print("Error decoding user: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
     
     func saveUserData() {
         guard let userId = FirebaseAuth.Auth.auth().currentUser?.uid else {return}
         
-        let user = User(id: userId, name: name, spokenLanguages: spokenLanguages)
+        let user = User(id: userId, name: name, spokenLanguages: spokenLanguages, gender: gender == .male ? "male" : "female")
         
         let db = Firestore.firestore()
         
