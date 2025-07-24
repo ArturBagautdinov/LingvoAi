@@ -55,7 +55,7 @@ struct SignUp: View {
                     }
                     .frame(width: 370)
                     
-                    AuthButton(text: "SIGN UP", isAnimated: $isAnimated) {
+                    AuthButton(text: "SIGN UP", icon: "arrow.right",  isAnimated: $isAnimated) {
                         if email.isEmpty {
                                 errorMessage = "Enter email"
                                 return

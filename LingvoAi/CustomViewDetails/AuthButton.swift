@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AuthButton: View {
     var text: String = ""
+    var icon: String = ""
     @Binding var isAnimated: Bool
     var action: () -> Void
     
@@ -30,7 +31,7 @@ struct AuthButton: View {
             Button {
                 action()
             } label: {
-                Text("\(text)   \(Image(systemName: "arrow.forward"))")
+                Text("\(text)   \(Image(systemName: icon))")
                     .font(.system(size: 16))
                     .bold()
                     .foregroundStyle(.white)

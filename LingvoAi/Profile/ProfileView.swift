@@ -9,34 +9,55 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 
-struct ProfileCreationView: View {
+struct ProfileView: View {
     @State private var name: String = ""
     @State private var spokenLanguages: String = ""
     @State private var isAnimated = false
     @State private var gender: Gender = .male
     @State private var shouldShowLoginView = false
     
-    
     enum Gender {
         case female, male
     }
+    
     var body: some View {
         ZStack {
             BackgroundGradient()
             
             VStack(spacing: 60) {
-                Spacer()
+            
                 VStack(spacing: 20) {
-                    Text("Profile")
-                        .font(.system(size: 36, weight: .bold))
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [.blue, .purple, .pink],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                    VStack (spacing: -50) {
+                        Button {
+                            do {
+                                try FirebaseAuth.Auth.auth().signOut()
+                                shouldShowLoginView = true
+                            } catch {
+                                print(error.localizedDescription)
+                            }
+                        } label: {
+                            VStack {
+                                Image(systemName: "rectangle.portrait.and.arrow.right")
+                                Text("Sign Out")
+                            }
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.black.opacity(0.3))
+                            .cornerRadius(15)
+                        }
+                        .padding(.leading, 300)
+                        .fullScreenCover(isPresented: $shouldShowLoginView) {
+                            Login()
+                        }
+                        
+                    
+                        GradientHeader(header: "Profile")
+                    }
+                    
+                
+                    
+                    
                     Image(gender == .male ? "male" : "female")
                         .resizable()
                         .frame(width: 210, height: 210)
@@ -78,35 +99,12 @@ struct ProfileCreationView: View {
                 AuthButton(text: "SAVE", icon: "lasso.badge.sparkles", isAnimated: $isAnimated) {
                     saveUserData()
                 }
-                Button {
-                    do {
-                        try FirebaseAuth.Auth.auth().signOut()
-                        shouldShowLoginView = true
-                    } catch {
-                        print(error.localizedDescription)
-                    }
-                } label: {
-                    VStack {
-                        Image(systemName: "rectangle.portrait.and.arrow.right")
-                        Text("Sign Out")
-                    }
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.black.opacity(0.3))
-                    .cornerRadius(15)
-                }
-                .fullScreenCover(isPresented: $shouldShowLoginView) {
-                    Login()
-                }
-                .padding(.horizontal, 30)
-                .padding(.bottom, 50)
+                
                 Spacer()
             }
             .foregroundStyle(.white)
         }
         .padding(.bottom, -35)
-        
     }
     
     func saveUserData() {
@@ -118,7 +116,6 @@ struct ProfileCreationView: View {
         
         do {
             try db.collection("Users").document(userId).setData(from: user)
-            print("Data has been successfully saved")
         } catch {
             print("Saving error: \(error.localizedDescription)")
         }
@@ -126,7 +123,7 @@ struct ProfileCreationView: View {
 }
 
 #Preview {
-    ProfileCreationView()
+    ProfileView()
 }
 
 struct ProfileTextFieldView: View {

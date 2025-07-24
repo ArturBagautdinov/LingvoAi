@@ -18,16 +18,7 @@ struct MainView: View {
                 
                 VStack(spacing: 30) {
                     VStack(spacing: 10) {
-                        Text("LingvoAI")
-                            .font(.system(size: 36, weight: .bold))
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [.blue, .purple, .pink],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
-                            .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                        GradientHeader(header: "LingvoAI")
                         
                         Text("Ваш интеллектуальный помощник\n в изучении Английского языка")
                             .font(.system(.title3, design: .rounded))

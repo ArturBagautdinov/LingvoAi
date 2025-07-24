@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3C221A382E2D691F0075EBA8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3C221A372E2D691F0075EBA8 /* FirebaseAuth */; };
 		3C221A3A2E2D691F0075EBA8 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C221A392E2D691F0075EBA8 /* FirebaseCore */; };
+		3C46EF2E2E30149F006E5BEC /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3C46EF2D2E30149F006E5BEC /* FirebaseFirestore */; };
 		B9EF30AE2E2C459700A0A187 /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = B9EF30AD2E2C459700A0A187 /* OpenAI */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9EF30AE2E2C459700A0A187 /* OpenAI in Frameworks */,
+				3C46EF2E2E30149F006E5BEC /* FirebaseFirestore in Frameworks */,
 				3C221A3A2E2D691F0075EBA8 /* FirebaseCore in Frameworks */,
 				3C221A382E2D691F0075EBA8 /* FirebaseAuth in Frameworks */,
 			);
@@ -124,6 +126,7 @@
 				B9EF30AD2E2C459700A0A187 /* OpenAI */,
 				3C221A372E2D691F0075EBA8 /* FirebaseAuth */,
 				3C221A392E2D691F0075EBA8 /* FirebaseCore */,
+				3C46EF2D2E30149F006E5BEC /* FirebaseFirestore */,
 			);
 			productName = LingvoAi;
 			productReference = B9CA55422E2B8CE000CBB605 /* LingvoAi.app */;
@@ -604,6 +607,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3C221A362E2D691F0075EBA8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCore;
+		};
+		3C46EF2D2E30149F006E5BEC /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3C221A362E2D691F0075EBA8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 		B9EF30AD2E2C459700A0A187 /* OpenAI */ = {
 			isa = XCSwiftPackageProductDependency;

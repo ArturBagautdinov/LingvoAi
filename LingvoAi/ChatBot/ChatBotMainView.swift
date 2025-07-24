@@ -67,17 +67,7 @@ struct ChatBotMainView: View {
                 
                 VStack(spacing: 0) {
                     ZStack {
-                        Text("LingvoChat")
-                            .font(.system(size: 36, weight: .bold))
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [.blue, .purple, .pink],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
-                            .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-                        
+                        GradientHeader(header: "LingvoChat")
                     }
                     .padding(.top, 5)
                     .padding(.horizontal)
@@ -114,7 +104,6 @@ struct ChatBotMainView: View {
                                 .clipShape(Circle())
                         }
                     }
-                    
                     .padding()
                     
                 }

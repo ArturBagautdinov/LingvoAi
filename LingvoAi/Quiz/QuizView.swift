@@ -24,16 +24,7 @@ struct QuizView: View {
             BackgroundGradient()
             VStack(spacing: 20) {
                 VStack {
-                    Text("English Quiz")
-                        .font(.system(size: 36, weight: .bold))
-                        .foregroundStyle(
-                            LinearGradient(
-                                colors: [.blue, .purple, .pink],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
+                    GradientHeader(header: "English Quiz")
                     
                     Button(action: {
                         showLevelPicker.toggle()

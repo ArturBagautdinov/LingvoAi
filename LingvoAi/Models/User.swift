@@ -6,3 +6,14 @@
 //
 
 import Foundation
+import FirebaseFirestore
+
+struct User: Codable {
+    var id: String?
+    var name: String
+    var spokenLanguages: String
+    
+    
+}
+
+

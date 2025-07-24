@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct GradientHeader: View {
+    var header: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text(header)
+            .font(.system(size: 36, weight: .bold))
+            .foregroundStyle(
+                LinearGradient(
+                    colors: [.blue, .purple, .pink],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            )
+            .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
     }
 }
 
-#Preview {
-    GradientHeader()
-}
+
