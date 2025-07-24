@@ -1,15 +1,32 @@
+//
+//  ProfileCreationView.swift
+//  LingvoAi
+//
+//  Created by Ляйсан on 21.07.2025.
+//
+
 import SwiftUI
 import FirebaseAuth
+import FirebaseFirestore
 
-struct ProfileView: View {
+struct ProfileCreationView: View {
+    @State private var name: String = ""
+    @State private var spokenLanguages: String = ""
+    @State private var isAnimated = false
+    @State private var gender: Gender = .male
     @State private var shouldShowLoginView = false
-    @State var isAnimated = false
     
+    
+    enum Gender {
+        case female, male
+    }
     var body: some View {
-        NavigationStack {
-            ZStack {
-                BackgroundGradient()
-                VStack {
+        ZStack {
+            BackgroundGradient()
+            
+            VStack(spacing: 60) {
+                Spacer()
+                VStack(spacing: 20) {
                     Text("Profile")
                         .font(.system(size: 36, weight: .bold))
                         .foregroundStyle(
@@ -20,75 +37,113 @@ struct ProfileView: View {
                             )
                         )
                         .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
-                    
-                    Spacer()
-                    
-                    ZStack {
-                        NavigationLink {
-                            ProfileCreationView()
+                    Image(gender == .male ? "male" : "female")
+                        .resizable()
+                        .frame(width: 210, height: 210)
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle().stroke(LinearGradient(colors: [.bluePurple, .dRed], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
+                        )
+                    HStack {
+                        Text("male")
+                        Button {
+                            gender = .male
                         } label: {
-                            CreateButton(isAnimated: $isAnimated)
+                            Image(systemName: "record.circle")
+                                .foregroundColor(gender == .male ? .white : .gray)
+                        }
+                        
+                        Text("female")
+                        Button {
+                            gender = .female
+                        } label: {
+                            Image(systemName: "record.circle")
+                                .foregroundColor(gender == .female ? .white : .gray)
                         }
                     }
-                    Button {
-                        do {
-                            try FirebaseAuth.Auth.auth().signOut()
-                            shouldShowLoginView = true
-                        } catch {
-                            print(error.localizedDescription)
-                        }
-                    } label: {
-                        VStack {
-                            Image(systemName: "rectangle.portrait.and.arrow.right")
-                            Text("Sign Out")
-                        }
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.black.opacity(0.3))
-                        .cornerRadius(15)
-                    }
-                    .fullScreenCover(isPresented: $shouldShowLoginView) {
-                        Login()
-                    }
-                    .padding(.horizontal, 30)
-                    .padding(.bottom, 50)
                 }
+                
+                VStack(spacing: 20) {
+                    VStack(alignment: .leading) {
+                        Text("Name")
+                        ProfileTextFieldView(name: $name, placeholder: "Enter your name")
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("Spoken languages")
+                        ProfileTextFieldView(name: $spokenLanguages, placeholder: "Enter languages you speak")
+                    }
+                }
+                
+                AuthButton(text: "SAVE", icon: "lasso.badge.sparkles", isAnimated: $isAnimated) {
+                    saveUserData()
+                }
+                Button {
+                    do {
+                        try FirebaseAuth.Auth.auth().signOut()
+                        shouldShowLoginView = true
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                } label: {
+                    VStack {
+                        Image(systemName: "rectangle.portrait.and.arrow.right")
+                        Text("Sign Out")
+                    }
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.black.opacity(0.3))
+                    .cornerRadius(15)
+                }
+                .fullScreenCover(isPresented: $shouldShowLoginView) {
+                    Login()
+                }
+                .padding(.horizontal, 30)
+                .padding(.bottom, 50)
+                Spacer()
             }
+            .foregroundStyle(.white)
+        }
+        .padding(.bottom, -35)
+        
+    }
+    
+    func saveUserData() {
+        guard let userId = FirebaseAuth.Auth.auth().currentUser?.uid else {return}
+        
+        let user = User(id: userId, name: name, spokenLanguages: spokenLanguages)
+        
+        let db = Firestore.firestore()
+        
+        do {
+            try db.collection("Users").document(userId).setData(from: user)
+            print("Data has been successfully saved")
+        } catch {
+            print("Saving error: \(error.localizedDescription)")
         }
     }
 }
 
 #Preview {
-    ProfileView()
+    ProfileCreationView()
 }
 
-struct CreateButton: View {
-    @Binding var isAnimated: Bool
+struct ProfileTextFieldView: View {
+    @Binding var name: String
+    var placeholder: String
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(AngularGradient(colors: [.black, .bluePurple,.dRed, .black] , center: .center, angle: .degrees(isAnimated ? 360 : 0)))
-                .frame(width: 145, height: 55)
-                .blur(radius: 10)
-                .onAppear {
-                    withAnimation(Animation.linear(duration: 6).repeatForever(autoreverses: false)) {
-                        isAnimated.toggle()
-                    }
-                }
-            Text("Create  \(Image(systemName: "wand.and.sparkles"))")
-                .font(.system(size: 22, weight: .bold))
-                .foregroundStyle(.white)
-                .frame(width: 140, height: 50)
-                .padding(.horizontal, 10)
-                .background(.black)
-                .cornerRadius(20)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .stroke(.bluePurple, lineWidth: 1)
-                )
-        }
+        TextField(placeholder, text: $name)
+            .padding()
+            .frame(width: 370, height: 40)
+            .foregroundStyle(.white)
+            .background(.black)
+            .cornerRadius(5)
+            .overlay(
+                RoundedRectangle(cornerRadius: 5, style: .continuous)
+                    .stroke(LinearGradient(colors: [.bluePurple, .dRed, .bluePurple], startPoint: .leading, endPoint: .trailing), lineWidth: 2)
+            )
     }
 }
 

@@ -1,18 +1,18 @@
 //
-//  ProfileCreationView.swift
+//  GradientHeader.swift
 //  LingvoAi
 //
-//  Created by Ляйсан on 21.07.2025.
+//  Created by Ляйсан on 23.07.2025.
 //
 
 import SwiftUI
 
-struct ProfileCreationView: View {
+struct GradientHeader: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    ProfileCreationView()
+    GradientHeader()
 }

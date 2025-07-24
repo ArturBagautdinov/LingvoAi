@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyAXLdpouK_ID82jt6cnomp34KruN8Gt_J4</string>
+	<string>AIzaSyCVMyM3EpUoKQ9Ixv_aVdulzhIfZrEI5qE</string>
 	<key>GCM_SENDER_ID</key>
-	<string>612649194962</string>
+	<string>709552250757</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>org.tag.LingvoAi</string>
+	<string>LaysProduction.LingvoAi</string>
 	<key>PROJECT_ID</key>
-	<string>lingvoai-2a4ab</string>
+	<string>lingvoai</string>
 	<key>STORAGE_BUCKET</key>
-	<string>lingvoai-2a4ab.firebasestorage.app</string>
+	<string>lingvoai.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:612649194962:ios:3b122e82d150944e01e40b</string>
+	<string>1:709552250757:ios:c1c16993c4051724f66eec</string>
 </dict>
 </plist>
